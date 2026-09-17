@@ -25,7 +25,7 @@ Aprimorar minhas habilidades em desenvolvimento web, unir minha experiência em 
 
 Designer Gráfico | Web Design | Desenvolvimento Web
 
-- Portfólio: [almini.dev](https://almini.dev/)
+- Portfólio: [almini.dev](https://alminidev.github.io)
 - GitHub: [@alminidev](https://github.com/alminidev)
 
 ---
