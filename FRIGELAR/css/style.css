@@ -215,19 +215,19 @@ section { padding: var(--section-pad) 0; }
   align-items: center;
 }
 .hero-image-wrap {
-  border-radius: 28px;
-  overflow: hidden;
   max-width: 576px;
   width: 100%;
-  box-shadow: 0 32px 80px rgba(0, 140, 255, 0.22), 0 0 0 1px rgba(255,255,255,0.08);
+  border-radius: 28px;
+  overflow: hidden;
   animation: float 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 40px 80px rgba(0, 160, 255, 0.28));
 }
 .hero-image-wrap img {
   width: 100%;
   max-height: 66vw;
   object-fit: cover;
+  object-position: top;
   display: block;
-  border-radius: 28px;
 }
 @media (min-width: 992px) {
   .hero-image-wrap { max-width: 576px; }
