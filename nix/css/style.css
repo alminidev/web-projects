@@ -147,7 +147,7 @@ h3 {
   }
 }
 
-retirar a imagem deixar somente texto section {
+section {
   padding: var(--section-pad) 0;
 }
 
@@ -186,6 +186,15 @@ retirar a imagem deixar somente texto section {
   border: none;
   transition: transform var(--ease-base), background-color var(--ease-base), border-color var(--ease-base), color var(--ease-base), box-shadow var(--ease-base);
   white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .btn {
+    white-space: normal;
+    text-align: center;
+    font-size: 0.875rem;
+    padding: 0.8rem 1.4rem;
+  }
 }
 
 .btn-primary {
@@ -250,10 +259,17 @@ retirar a imagem deixar somente texto section {
 }
 
 .logo img {
-  height: 68px; width: auto;
+  height: 68px;
+  width: auto;
   position: relative;
   z-index: 1;
   object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .logo img {
+    height: 48px;
+  }
 }
 
 /* NAV ACTIONS */
@@ -307,6 +323,14 @@ retirar a imagem deixar somente texto section {
   overflow: hidden;
 }
 
+@media (max-width: 991px) {
+  .hero {
+    min-height: unset;
+    padding-top: 90px;
+    padding-bottom: var(--sp-2xl);
+  }
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -316,8 +340,9 @@ retirar a imagem deixar somente texto section {
 
 @media (min-width: 992px) {
   .hero-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--sp-2xl);
+    grid-template-columns: 45fr 55fr;
+    gap: var(--sp-xl);
+    align-items: start;
   }
 }
 
@@ -352,6 +377,12 @@ retirar a imagem deixar somente texto section {
   margin-top: var(--sp-sm);
 }
 
+@media (max-width: 991px) {
+  .hero-ctas .btn {
+    width: 100%;
+  }
+}
+
 @media (min-width: 992px) {
   .hero-ctas {
     align-items: flex-start;
@@ -367,15 +398,20 @@ retirar a imagem deixar somente texto section {
 
 .hero-image-wrap {
   width: 100%;
-  max-width: 600px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
   animation: fadeInImage 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   opacity: 0;
 }
 
 .hero-image-wrap img {
   width: 100%;
+  height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
 }
 
 @keyframes fadeInImage {
@@ -394,6 +430,13 @@ retirar a imagem deixar somente texto section {
   font-size: var(--font-sm);
   color: var(--color-text-secondary);
   margin-top: -0.5rem;
+}
+
+.hero-micro {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.03em;
+  opacity: 0.75;
 }
 
 /* SECTIONS ALIGNMENT */
@@ -433,13 +476,20 @@ retirar a imagem deixar somente texto section {
   overflow: hidden;
 }
 
-/* Imagem 30% menor: centralizada na sua coluna com max-width */
+/* Imagem centralizada na sua coluna */
 .split-image-wrap {
   max-width: 70%;
   margin: 0 auto;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: #000; /* elimina espaços transparentes */
+  background: #000;
+}
+
+/* No mobile (coluna única), usa largura completa */
+@media (max-width: 991px) {
+  .split-image-wrap {
+    max-width: 100%;
+  }
 }
 
 .split-image img {
@@ -589,6 +639,26 @@ retirar a imagem deixar somente texto section {
   letter-spacing: 0.05em;
 }
 
+/* Mobile: reduz tamanhos para caber nas 3 colunas estreitas */
+@media (max-width: 480px) {
+  .dim-grid {
+    gap: var(--sp-xs);
+  }
+
+  .dim-item {
+    padding: var(--sp-md) var(--sp-2xs);
+  }
+
+  .dim-val {
+    font-size: 1.8rem;
+  }
+
+  .dim-label {
+    font-size: 0.68rem;
+    letter-spacing: 0;
+  }
+}
+
 .dim-note {
   text-align: center;
   margin-top: var(--sp-lg);
@@ -608,6 +678,14 @@ retirar a imagem deixar somente texto section {
   margin: 0 auto var(--sp-lg);
 }
 
+@media (max-width: 767px) {
+  .sob-medida .btn {
+    white-space: normal;
+    width: 100%;
+    max-width: 380px;
+  }
+}
+
 /* OFFER */
 .offer-box {
   max-width: 500px;
@@ -620,12 +698,24 @@ retirar a imagem deixar somente texto section {
   box-shadow: 0 20px 40px rgba(0, 102, 255, 0.1);
 }
 
+@media (max-width: 480px) {
+  .offer-box {
+    padding: var(--sp-xl) var(--sp-md);
+  }
+}
+
 .offer-price {
   font-size: 3.5rem;
   font-weight: 800;
   color: var(--color-text-primary);
   line-height: 1;
   margin: var(--sp-md) 0 var(--sp-3xs);
+}
+
+@media (max-width: 480px) {
+  .offer-price {
+    font-size: 2.8rem;
+  }
 }
 
 .offer-installments {
@@ -789,7 +879,8 @@ retirar a imagem deixar somente texto section {
 
 @media (min-width: 768px) {
   .footer-inner {
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr auto;
+    align-items: center;
     text-align: left;
   }
 }
@@ -812,10 +903,20 @@ retirar a imagem deixar somente texto section {
   gap: var(--sp-2xs);
 }
 
+.footer-center .footer-logo {
+  margin-bottom: var(--sp-xs);
+}
+
 .footer-center small {
   font-size: 0.78rem;
   color: var(--color-text-secondary);
   display: block;
+}
+
+@media (min-width: 768px) {
+  .footer-center {
+    align-items: flex-start;
+  }
 }
 
 .footer-contact {
