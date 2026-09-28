@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alexandre Polettini — Graphic Designer with 25+ years of experience transitioning into Front-End Development. Building digital experiences with design & code.">
+  <title>Alexandre Polettini — Graphic Designer &amp; Developer</title>
+
+  <!-- Google Fonts: Anton (display) + Space Mono (editorial/monospace) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ======================================================
+       HEADER — fixed, name + nav
+       ====================================================== -->
+  <header id="header">
+    <div class="header-inner">
+      <p class="header-name">
+        alexandre polettini <span class="header-handle">{@almini}</span>
+      </p>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="menu-brackets">{&nbsp;}</span>
+      </button>
+      <nav class="header-nav" id="header-nav" aria-label="Main navigation">
+        <a href="#work"    class="nav-link">{work}</a>
+        <a href="#about"   class="nav-link">{about}</a>
+        <a href="#contact" class="nav-link">{contact}</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- ======================================================
+       HERO — stacked text + photo overlay
+       ====================================================== -->
+  <section id="home" class="hero">
+
+    <!-- Visual: GRAPHIC / DESIGNER / AND / DEVELOPER + photo -->
+    <div class="hero-visual">
+      <!-- Decorative text: aria-hidden because the real alt is on img -->
+      <div class="hero-text-wrap" aria-hidden="true">
+        <span class="hero-line hero-line-1">GRAPHIC</span>
+        <span class="hero-line hero-line-2">DESIGNER</span>
+        <span class="hero-line hero-line-3">AND</span>
+        <span class="hero-line hero-line-4">DEVELOPER</span>
+      </div>
+
+      <!-- Photo (transparent bg) — z-index 2 places body IN FRONT of text -->
+      <img
+        src="00-brief/assets/foto-hero-transparente.png"
+        alt="Alexandre Polettini — Graphic Designer and Front-End Developer"
+        class="hero-photo"
+      >
+    </div>
+
+    <!-- Content below the visual -->
+    <div class="hero-content">
+      <h1 class="hero-subtitle">I BUILD DIGITAL<br>EXPERIENCES WITH<br>DESIGN &amp; CODE.</h1>
+      <p class="hero-paragraph">
+        Graphic designer with experience in visual identity and design production. Currently directing this expertise towards Front-End Development.
+      </p>
+      <p class="hero-scroll" aria-label="Scroll to explore">(scroll to explore)<br>&darr;</p>
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       WORK — 3-column grid, real projects
+       ====================================================== -->
+  <section id="work">
+    <div class="section-inner">
+      <h2 class="section-label">{work}</h2>
+
+      <div class="work-grid">
+
+        <!-- 01 — Manos Car -->
+        <article class="work-card" id="project-manos-car">
+          <div class="work-img-wrap">
+            <img
+              src="00-brief/assets/manos-car.png"
+              alt="Manos Car — brand identity"
+              loading="lazy"
+              class="work-img"
+            >
+          </div>
+          <div class="work-info">
+            <h3 class="work-title">MANO'S CAR</h3>
+            <p class="work-tags">BRAND IDENTITY ART DIRECTION DIGITAL DESIGN</p>
+            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction encompasses digital and print materials.</p>
+          </div>
+        </article>
+
+        <!-- 02 — Lucy -->
+        <article class="work-card" id="project-lucy">
+          <div class="work-img-wrap work-img-pending">
+            <span class="pending-label">IMAGE PENDING</span>
+          </div>
+          <div class="work-info">
+            <h3 class="work-title">MANO'S CAR</h3>
+            <p class="work-tags">BRAND IDENTITY ART DIRECTION DIGITAL DESIGN</p>
+            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction encompasses digital and print materials.</p>
+          </div>
+        </article>
+
+        <!-- 03 — Lo Ikewai -->
+        <article class="work-card" id="project-lo-ikewai">
+          <div class="work-img-wrap work-img-pending">
+            <span class="pending-label">IMAGE PENDING</span>
+          </div>
+          <div class="work-info">
+            <h3 class="work-title">MANO'S CAR</h3>
+            <p class="work-tags">BRAND IDENTITY ART DIRECTION DIGITAL DESIGN</p>
+            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction encompasses digital and print materials.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================
+       ABOUT — bio + tech stack
+       ====================================================== -->
+  <section id="about">
+    <div class="section-inner about-inner">
+      <h2 class="section-label">{about}</h2>
+      <p class="about-text">
+        Graphic designer with experience in visual identity, art direction, graphic production, and prepress. Today I'm expanding this experience towards Front-End Development, bringing together design and technology to create simple, functional, and visually strong digital experiences.
+      </p>
+      <div class="stack-wrap">
+        <span class="stack-label">tech stack</span>
+        <div class="stack-list" role="list" aria-label="Technologies">
+          <span role="listitem">html</span>
+          <span role="listitem">css</span>
+          <span role="listitem">javascript</span>
+          <span role="listitem">git</span>
+          <span role="listitem">figma</span>
+          <span role="listitem">node</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================
+       CONTACT — heading + CTA + footer
+       ====================================================== -->
+  <section id="contact">
+    <div class="section-inner contact-inner">
+      <h2 class="section-label">{contact}</h2>
+      <h2 class="contact-heading">LET'S MAKE<br>SOMETHING<br>GOOD.</h2>
+      <a href="mailto:contato@almini.dev" class="contact-cta">{contact me} &rarr;</a>
+      <footer class="site-footer">
+        <a href="https://github.com/alminidev"   target="_blank" rel="noopener noreferrer" class="footer-link">GITHUB</a>
+        <a href="https://linkedin.com/in/almini" target="_blank" rel="noopener noreferrer" class="footer-link">LINKEDIN</a>
+        <a href="mailto:contato@almini.dev"                                                class="footer-link">EMAIL</a>
+      </footer>
+    </div>
+  </section>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
