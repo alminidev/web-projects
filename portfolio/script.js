@@ -97,6 +97,11 @@
     nav.classList.toggle('open', isOpen);
     toggle.classList.toggle('active', isOpen);
     toggle.setAttribute('aria-expanded', String(isOpen));
+
+    const brackets = toggle.querySelector('.menu-brackets');
+    if (brackets) {
+      brackets.innerHTML = isOpen ? '{&times;}' : '{&nbsp;}';
+    }
   }
 
   toggle.addEventListener('click', (e) => {
@@ -123,4 +128,140 @@
     }
   });
 }());
+
+
+/* ----------------------------------------------------------------
+   EMAIL COPY & MAILTO DISPATCH:
+   Automatically copies email to clipboard, displays subtle toast,
+   and fires mailto in the background.
+   ---------------------------------------------------------------- */
+(function initEmailHandlers() {
+  const mailLinks = document.querySelectorAll('a[href^="mailto:"]');
+  const toast = document.getElementById('toast');
+  let toastTimer = null;
+
+  function fallbackCopy(text) {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return successful;
+    } catch (e) {
+      console.warn('Fallback copy error:', e);
+      return false;
+    }
+  }
+
+  async function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (err) {
+        return fallbackCopy(text);
+      }
+    }
+    return fallbackCopy(text);
+  }
+
+  function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3200);
+  }
+
+  mailLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault(); // Previne a navegação de protocolo que tira o foco e cancela o clipboard
+      const href = link.getAttribute('href') || '';
+      const email = href.replace(/^mailto:/i, '').split('?')[0];
+
+      if (email) {
+        copyText(email);
+        showToast(`${email} copiado para a área de transferência!`);
+      }
+    });
+  });
+}());
+
+
+/* ----------------------------------------------------------------
+   HERO GLITCH + CHARACTER SWAP CONTROLLER
+   ---------------------------------------------------------------- */
+(function initHeroGlitchSwap() {
+  const wrapper = document.getElementById('heroGlitchWrapper');
+  const imgElement = document.getElementById('heroGlitchImg');
+
+  if (!wrapper || !imgElement) return;
+
+  const BASE_PATH = '00-brief/assets/';
+
+  // Array de PNGs com fundo transparente
+  const characters = [
+    'foto-hero-transparente.png',
+    '70.png',
+    'punk.png',
+    'rapper.png',
+    'surfista.png',
+    'exercito.png',
+    'juventus.png',
+    'aranha.png',
+    'vader.png',
+    'romano.png'
+  ];
+
+  // Preload silencioso dos PNGs transparentes
+  characters.forEach((filename) => {
+    const preloader = new Image();
+    preloader.src = `${BASE_PATH}${filename}`;
+  });
+
+  let currentIndex = 0;
+  let isSwapping = false;
+
+  // Se um PNG específico ainda não foi colocado na pasta, previne quebra visual
+  imgElement.addEventListener('error', () => {
+    console.warn(`Imagem ${imgElement.src} não encontrada em ${BASE_PATH}. Verifique se o arquivo PNG transparente foi adicionado.`);
+  });
+
+  wrapper.addEventListener('click', () => {
+    if (isSwapping) return; // Evita cliques concorrentes durante o flash
+    isSwapping = true;
+
+    // 1. Inicia o Flash Esfumaçado rápido (duração total: 200ms)
+    wrapper.classList.add('is-flashing');
+
+    // 2. No pico da opacidade do flash (~90ms), troca a imagem oculta
+    setTimeout(() => {
+      currentIndex = (currentIndex + 1) % characters.length;
+      const nextSrc = `${BASE_PATH}${characters[currentIndex]}`;
+
+      // Atualiza o src da imagem
+      imgElement.src = nextSrc;
+
+      // Sincroniza a custom property CSS para atualizar as camadas ciano e vermelho
+      wrapper.style.setProperty('--img-url', `url('${nextSrc}')`);
+    }, 90);
+
+    // 3. Finaliza a animação e reativa a interação
+    setTimeout(() => {
+      wrapper.classList.remove('is-flashing');
+      isSwapping = false;
+    }, 205);
+  });
+}());
+
 

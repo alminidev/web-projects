@@ -3,23 +3,25 @@
    Fidelity matching layout-referencia.png
    ================================================================ */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  --bg:           #000000;
-  --fg:           #f0ece0;
-  --fg-dim:       rgba(240, 236, 224, 0.7);
-  --fg-faint:     rgba(240, 236, 224, 0.15);
+  --bg: #000000;
+  --fg: #f0ece0;
+  --fg-dim: rgba(240, 236, 224, 0.7);
+  --fg-faint: rgba(240, 236, 224, 0.15);
 
   --font-display: 'Anton', sans-serif;
-  --font-mono:    'Space Mono', monospace;
+  --font-mono: 'Space Mono', monospace;
 
-  --pad-x:        3rem;
-  --header-h:     5rem;
+  --pad-x: 3rem;
+  --header-h: 5rem;
 }
 
 html {
@@ -110,7 +112,12 @@ a {
 }
 
 .menu-toggle {
-  display: none; /* Hidden on PC / desktop */
+  display: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Hidden on PC / desktop */
 }
 
 .header-nav {
@@ -177,14 +184,17 @@ a {
   font-size: calc(var(--hero-text-w) * 0.3050);
   animation-delay: 0.60s;
 }
+
 .hero-line-2 {
   font-size: calc(var(--hero-text-w) * 0.2737);
   animation-delay: 0.72s;
 }
+
 .hero-line-3 {
   font-size: calc(var(--hero-text-w) * 0.6594);
   animation-delay: 0.84s;
 }
+
 .hero-line-4 {
   font-size: calc(var(--hero-text-w) * 0.2353);
   animation-delay: 0.96s;
@@ -195,25 +205,238 @@ a {
     opacity: 0;
     transform: translateY(28px) scale(0.97);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-.hero-photo {
+/* ----------------------------------------------------------------
+   HERO PHOTO & GLITCH + SWAP INTERACTION
+   ---------------------------------------------------------------- */
+.hero-photo-wrapper {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   height: clamp(55vh, 78vh, 88vh);
   width: auto;
-  object-fit: contain;
-  object-position: bottom center;
   z-index: 2;
-  pointer-events: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
   animation: heroPhotoEntrance 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
   will-change: transform, opacity;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.hero-photo-wrapper .hero-photo {
+  position: relative;
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  pointer-events: auto;
+  display: block;
+  transition: transform 0.15s ease-in;
+}
+
+/* Pseudo-elementos para aberração cromática (Ciano e Vermelho em PNG transparente) */
+.hero-photo-wrapper {
+  --img-url: url('00-brief/assets/foto-hero-transparente.png');
+}
+
+.hero-photo-wrapper::before,
+.hero-photo-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  background-image: var(--img-url);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  mix-blend-mode: screen;
+  
+  /* FASE 1: Transição suave de abertura cromática (0.0s a 0.15s) */
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.16s ease-out;
+}
+
+/* Camada Ciano */
+.hero-photo-wrapper::before {
+  filter: drop-shadow(-4px 0 0 #00f0ff) drop-shadow(-1px 0 3px rgba(0, 240, 255, 0.7));
+  transform: translate(0, 0);
+}
+
+/* Camada Vermelha */
+.hero-photo-wrapper::after {
+  filter: drop-shadow(4px 0 0 #ff003c) drop-shadow(1px 0 3px rgba(255, 0, 60, 0.7));
+  transform: translate(0, 0);
+}
+
+/* --------------------------------------------------------------------------
+   ESTADOS DE HOVER
+   -------------------------------------------------------------------------- */
+
+/* FASE 1 (0.0s a 0.15s): Aberração cromática expande suavemente */
+.hero-photo-wrapper:hover::before {
+  opacity: 0.85;
+  transform: translate(-5px, 0);
+  /* FASE 2: Glitch agressivo após 0.16s */
+  animation: glitch-anim-cyan 0.35s steps(2, jump-none) 0.16s infinite alternate;
+}
+
+.hero-photo-wrapper:hover::after {
+  opacity: 0.85;
+  transform: translate(5px, 0);
+  /* FASE 2: Glitch agressivo após 0.16s */
+  animation: glitch-anim-red 0.35s steps(2, jump-none) 0.16s infinite alternate;
+}
+
+/* A imagem central permanece ESTÁVEL durante a Fase 1 (sem tremer nos primeiros 0.16s) */
+.hero-photo-wrapper:hover .hero-photo {
+  animation: glitch-anim-main 0.3s steps(1) 0.16s infinite;
+}
+
+/* Microcopy / Hint */
+.transform-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(240, 236, 224, 0.2);
+  padding: 5px 12px;
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+.hero-photo-wrapper:hover .transform-hint {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Flash Esfumaçado no Clique (Smoke & Flare Light Burst) */
+.flash-overlay {
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  right: -40%;
+  bottom: -15%;
+  background: radial-gradient(
+    ellipse 62% 65% at 50% 55%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.96) 20%,
+    rgba(255, 255, 255, 0.75) 42%,
+    rgba(255, 255, 255, 0.35) 65%,
+    rgba(255, 255, 255, 0.1) 82%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(20px);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 20;
+  mix-blend-mode: screen;
+  will-change: opacity, transform, filter;
+}
+
+.hero-photo-wrapper.is-flashing .flash-overlay {
+  animation: flash-smoke-burst 200ms cubic-bezier(0.12, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes flash-smoke-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.88);
+    filter: blur(28px);
+  }
+  38%, 58% {
+    opacity: 1;
+    transform: scale(1.05);
+    filter: blur(18px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.22);
+    filter: blur(34px);
+  }
+}
+
+@keyframes glitch-anim-main {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-2px, 0.5px); }
+  50% { transform: translate(1.5px, -0.5px); }
+  75% { transform: translate(-1px, -1px); }
+}
+
+@keyframes glitch-anim-cyan {
+  0% {
+    clip-path: inset(10% 0 75% 0);
+    transform: translate(-5px, 0);
+  }
+  20% {
+    clip-path: inset(55% 0 20% 0);
+    transform: translate(4px, -1px);
+  }
+  40% {
+    clip-path: inset(30% 0 45% 0);
+    transform: translate(-4px, 1px);
+  }
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(6px, 0);
+  }
+  80% {
+    clip-path: inset(2% 0 88% 0);
+    transform: translate(-3px, -2px);
+  }
+  100% {
+    clip-path: inset(45% 0 35% 0);
+    transform: translate(2px, 1px);
+  }
+}
+
+@keyframes glitch-anim-red {
+  0% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translate(5px, 0);
+  }
+  20% {
+    clip-path: inset(5% 0 70% 0);
+    transform: translate(-6px, 1px);
+  }
+  40% {
+    clip-path: inset(65% 0 15% 0);
+    transform: translate(3px, -1px);
+  }
+  60% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translate(-4px, 2px);
+  }
+  80% {
+    clip-path: inset(75% 0 8% 0);
+    transform: translate(5px, -1px);
+  }
+  100% {
+    clip-path: inset(15% 0 50% 0);
+    transform: translate(-2px, 0);
+  }
 }
 
 @keyframes heroPhotoEntrance {
@@ -221,6 +444,7 @@ a {
     opacity: 0;
     transform: translateX(-50%) translateY(28px) scale(0.97);
   }
+
   100% {
     opacity: 1;
     transform: translateX(-50%) translateY(0) scale(1);
@@ -228,12 +452,15 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
+  .hero-photo-wrapper,
   .hero-photo,
   .hero-line {
     animation: none;
     opacity: 1;
     transform: none;
   }
+
   .hero-photo {
     transform: translateX(-50%);
   }
@@ -451,6 +678,37 @@ a {
 }
 
 /* ----------------------------------------------------------------
+   TOAST NOTIFICATION (Copy email feedback)
+   ---------------------------------------------------------------- */
+.toast {
+  position: fixed;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  background-color: #000000;
+  color: var(--fg);
+  border: 1px solid var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 1.4rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+  z-index: 1000;
+  max-width: 90vw;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.9);
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* ----------------------------------------------------------------
    RESPONSIVE
    ---------------------------------------------------------------- */
 @media (max-width: 900px) {
@@ -491,21 +749,29 @@ a {
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
-    border: 1px solid transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
     color: var(--fg);
     font-family: var(--font-mono);
     font-size: 1rem;
     padding: 0.35rem 0.5rem;
-    border-radius: 4px;
     cursor: pointer;
     line-height: 1;
-    transition: opacity 0.2s ease, border-color 0.2s ease;
+    transition: opacity 0.2s ease;
   }
 
   .menu-toggle:hover,
-  .menu-toggle.active {
-    border-color: var(--fg-faint);
-    opacity: 1;
+  .menu-toggle.active,
+  .menu-toggle:focus,
+  .menu-toggle:focus-visible,
+  .menu-toggle:active {
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    opacity: 0.7;
   }
 
   .menu-brackets {
@@ -547,23 +813,50 @@ a {
     letter-spacing: 0.08em;
   }
 
-  /* HERO MOBILE PROPORTIONS — exact same proportion of text and man as desktop (PC) */
+  /* HERO MOBILE PROPORTIONS — réplica exata do Desktop PC */
   .hero-visual {
     height: 100svh;
     min-height: 520px;
   }
 
   .hero-text-wrap {
-    --hero-text-w: clamp(302px, 74vw, 355px);
-    gap: clamp(0.45rem, 1.2vh, 0.85rem);
-    padding-top: 1.5rem;
+    --hero-text-w: min(88vw, 350px);
+    gap: clamp(0.25rem, 0.8vh, 0.45rem);
+    padding-top: 2rem;
   }
 
-  .hero-photo {
-    height: clamp(55vh, 75vh, 80vh);
+  /* Homem ancorado no rodapé (bottom: 0) aumentado em +10% (escala 1.55x) */
+  .hero-photo-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(1.55);
+    transform-origin: bottom center;
+    height: clamp(50vh, 57svh, 60svh);
+    width: auto;
+    animation: heroPhotoEntranceMobile 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  }
+
+  .hero-photo-wrapper .hero-photo {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    object-position: bottom center;
   }
 
   .hero-content {
     padding: 4.5rem var(--pad-x) 6rem;
+  }
+}
+
+@keyframes heroPhotoEntranceMobile {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(28px) scale(1.48);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.55);
   }
 }

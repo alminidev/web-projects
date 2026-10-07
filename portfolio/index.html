@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Alexandre Polettini — Graphic Designer with 25+ years of experience transitioning into Front-End Development. Building digital experiences with design & code.">
+  <meta name="description"
+    content="Alexandre Polettini — Graphic Designer with 25+ years of experience transitioning into Front-End Development. Building digital experiences with design & code.">
   <title>Alexandre Polettini — Graphic Designer &amp; Developer</title>
 
   <!-- Google Fonts: Anton (display) + Space Mono (editorial/monospace) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- ======================================================
@@ -27,8 +31,8 @@
         <span class="menu-brackets">{&nbsp;}</span>
       </button>
       <nav class="header-nav" id="header-nav" aria-label="Main navigation">
-        <a href="#work"    class="nav-link">{work}</a>
-        <a href="#about"   class="nav-link">{about}</a>
+        <a href="#work" class="nav-link">{work}</a>
+        <a href="#about" class="nav-link">{about}</a>
         <a href="#contact" class="nav-link">{contact}</a>
       </nav>
     </div>
@@ -50,19 +54,23 @@
         <span class="hero-line hero-line-4">DEVELOPER</span>
       </div>
 
-      <!-- Photo (transparent bg) — z-index 2 places body IN FRONT of text -->
-      <img
-        src="00-brief/assets/foto-hero-transparente.png"
-        alt="Alexandre Polettini — Graphic Designer and Front-End Developer"
-        class="hero-photo"
-      >
+      <!-- Photo (transparent bg) with Glitch & Swap effect -->
+      <div class="image-wrapper hero-photo-wrapper" id="heroGlitchWrapper"
+        style="--img-url: url('00-brief/assets/foto-hero-transparente.png');">
+        <img src="00-brief/assets/foto-hero-transparente.png"
+          alt="Alexandre Polettini — Graphic Designer and Front-End Developer" class="hero-photo glitch-img"
+          id="heroGlitchImg" draggable="false">
+        <div class="flash-overlay" aria-hidden="true"></div>
+        <span class="transform-hint" aria-hidden="true">Click to transform</span>
+      </div>
     </div>
 
     <!-- Content below the visual -->
     <div class="hero-content">
       <h1 class="hero-subtitle">I BUILD DIGITAL<br>EXPERIENCES WITH<br>DESIGN &amp; CODE.</h1>
       <p class="hero-paragraph">
-        Graphic designer with experience in visual identity and design production. Currently directing this expertise towards Front-End Development.
+        Graphic designer with experience in visual identity and design production. Currently directing this expertise
+        towards Front-End Development.
       </p>
       <p class="hero-scroll" aria-label="Scroll to explore">(scroll to explore)<br>&darr;</p>
     </div>
@@ -82,17 +90,13 @@
         <!-- 01 — Manos Car -->
         <article class="work-card" id="project-manos-car">
           <div class="work-img-wrap">
-            <img
-              src="00-brief/assets/manos-car.png"
-              alt="Manos Car — brand identity"
-              loading="lazy"
-              class="work-img"
-            >
+            <img src="00-brief/assets/manos-car.png" alt="Manos Car — brand identity" loading="lazy" class="work-img">
           </div>
           <div class="work-info">
             <h3 class="work-title">MANO'S CAR</h3>
             <p class="work-tags">BRAND IDENTITY ART DIRECTION DIGITAL DESIGN</p>
-            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction encompasses digital and print materials.</p>
+            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction
+              encompasses digital and print materials.</p>
           </div>
         </article>
 
@@ -104,7 +108,8 @@
           <div class="work-info">
             <h3 class="work-title">MANO'S CAR</h3>
             <p class="work-tags">BRAND IDENTITY ART DIRECTION DIGITAL DESIGN</p>
-            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction encompasses digital and print materials.</p>
+            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction
+              encompasses digital and print materials.</p>
           </div>
         </article>
 
@@ -116,7 +121,8 @@
           <div class="work-info">
             <h3 class="work-title">MANO'S CAR</h3>
             <p class="work-tags">BRAND IDENTITY ART DIRECTION DIGITAL DESIGN</p>
-            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction encompasses digital and print materials.</p>
+            <p class="work-desc">Complete brand identity for a high-end automotive rental service. Visual direction
+              encompasses digital and print materials.</p>
           </div>
         </article>
 
@@ -132,7 +138,12 @@
     <div class="section-inner about-inner">
       <h2 class="section-label">{about}</h2>
       <p class="about-text">
-        Graphic designer with experience in visual identity, art direction, graphic production, and prepress. Today I'm expanding this experience towards Front-End Development, bringing together design and technology to create simple, functional, and visually strong digital experiences.
+        Born in Brazil with Italian blood, I was shaped by the cultural revolutions of cinema, music, and sport, a
+        lifelong journey of learning that defines me today. With deep roots in Visual Identity, Art Direction, and
+        Prepress, I'm now expanding into Front-End Development, merging design and technology to craft digital
+        experiences
+        that are simple, functional, and visually striking.
+        <br>(Click my photo to explore the visual revolutions behind my work.)
       </p>
       <div class="stack-wrap">
         <span class="stack-label">tech stack</span>
@@ -156,16 +167,20 @@
     <div class="section-inner contact-inner">
       <h2 class="section-label">{contact}</h2>
       <h2 class="contact-heading">LET'S MAKE<br>SOMETHING<br>GOOD.</h2>
-      <a href="mailto:contato@almini.dev" class="contact-cta">{contact me} &rarr;</a>
+      <a href="mailto:alminidev@gmail.com" class="contact-cta">{contact me} &rarr;</a>
       <footer class="site-footer">
-        <a href="https://github.com/alminidev"   target="_blank" rel="noopener noreferrer" class="footer-link">GITHUB</a>
-        <a href="https://linkedin.com/in/almini" target="_blank" rel="noopener noreferrer" class="footer-link">LINKEDIN</a>
-        <a href="mailto:contato@almini.dev"                                                class="footer-link">EMAIL</a>
+        <a href="https://github.com/alminidev" target="_blank" rel="noopener noreferrer" class="footer-link">GITHUB</a>
+        <a href="https://www.linkedin.com/in/alminidev" target="_blank" rel="noopener noreferrer"
+          class="footer-link">LINKEDIN</a>
+        <a href="mailto:alminidev@gmail.com" class="footer-link">EMAIL</a>
       </footer>
     </div>
   </section>
 
+  <!-- Notification Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="script.js"></script>
 </body>
+
 </html>

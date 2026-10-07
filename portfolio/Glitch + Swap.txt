@@ -1,0 +1,37 @@
+
+EFEITO Glitch + Swap - Troca de pessonagens
+
+Aja como um Desenvolvedor Front-end Sênior especialista em animações CSS avançadas e Microinterações. Eu já tenho o layout do meu portfólio pronto. Apenas preciso de ajuda para aplicar um efeito específico numa imagem que já está no centro da tela (um PNG com fundo transparente). NÃO altere o meu HTML estrutural nem o layout da página. Gere apenas o CSS e o JavaScript necessários para o elemento da imagem.
+
+O Desafio (Efeito Glitch + Swap):
+Preciso aplicar um efeito de "Instabilidade Digital / VHS" na imagem, dividido em duas interações:
+
+1. O Hover com "Ramp-up" (Entrada Suave via CSS):
+A imagem deve ter uma wrapper (div). Ao passar o rato (:hover), o efeito não deve ser abrupto:
+
+Fase 1 (0.0s a 0.15s): Use transition (aprox. 0.15s ease-in) para criar uma leve aberração cromática. Use pseudo-elementos (::before e ::after com a mesma imagem) e desloque-os ligeiramente com cores ciano e vermelho (usando mix-blend-mode adequado para fundos escuros e PNGs transparentes).
+
+Fase 2 (Após 0.15s): O glitch agressivo começa. Dispare uma animação @keyframes (com animation-delay: 0.15s) usando clip-path para criar cortes horizontais e um leve jitter (tremor) no eixo X.
+
+Adicione também um microcopy simples (ex: <span class="transform-hint">Click to transform</span>) que fica visível apenas durante o hover.
+
+2. O Clique e a Troca de Personagem (JavaScript):
+
+Crie um array de imagens (ex: ['normal.png', 'gladiador.png', 'vader.png', 'punk.png']).
+
+Ao clicar na imagem, o JavaScript deve adicionar uma classe que gera um "Flash Branco" rápido (uma div ou pseudo-elemento que sobrepõe a imagem com background: white e dura cerca de 150 a 200ms).
+
+Exatamente no pico da opacidade do flash (quando a imagem fica oculta), altere o atributo src da imagem para a próxima do array.
+
+A experiência não deve ter nenhum som.
+
+Entregável:
+Forneça apenas a estrutura HTML de isolamento (a <div class="image-wrapper"> e a <img> dentro dela), o CSS puro isolado para estas classes (variáveis e keyframes) e o snippet de JavaScript responsável pelo click e swap.
+
+
+
+NOVO ABOUT
+
+Opção 1: O Equilíbrio Perfeito (Profissional com um toque de personalidade)
+
+Born in '73, my creative vision was shaped by the cultural and visual revolutions I witnessed firsthand. I am a Graphic Designer with deep roots in visual identity, art direction, and prepress. Today, I am expanding this foundation into Front-End Development, merging design and technology to build simple, functional, and visually striking digital experiences. (Click my photo to see what I mean by visual revolutions).
